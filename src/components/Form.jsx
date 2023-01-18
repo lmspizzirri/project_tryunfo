@@ -16,6 +16,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     return (
       <>
         <input
@@ -38,6 +39,7 @@ class Form extends React.Component {
           value={ cardAttr1 }
           onChange={ onInputChange }
           name="cardAttr1"
+          min="0"
         />
         <input
           type="number"
@@ -45,6 +47,7 @@ class Form extends React.Component {
           value={ cardAttr2 }
           onChange={ onInputChange }
           name="cardAttr2"
+          min="0"
         />
         <input
           type="number"
@@ -52,6 +55,7 @@ class Form extends React.Component {
           value={ cardAttr3 }
           onChange={ onInputChange }
           name="cardAttr3"
+          min="0"
         />
         <input
           type="text"
@@ -60,7 +64,12 @@ class Form extends React.Component {
           onChange={ onInputChange }
           name="cardImage"
         />
-        <select data-testid="rare-input" value={ cardRare } onChange={ onInputChange }>
+        <select
+          data-testid="rare-input"
+          value={ cardRare }
+          onChange={ onInputChange }
+          name="cardRare"
+        >
           <option value="normal">normal</option>
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
@@ -70,6 +79,7 @@ class Form extends React.Component {
           data-testid="trunfo-input"
           checked={ cardTrunfo }
           onChange={ onInputChange }
+          name="cardTrunfo"
         />
         <button
           type="button"

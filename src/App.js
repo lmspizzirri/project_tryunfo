@@ -11,15 +11,40 @@ class App extends React.Component {
     cardAttr3: '',
     cardImage: '',
     cardRare: '',
-    cardTrunfo: '',
+    cardTrunfo: false,
     hasTrunfo: true,
+    isSaveButtonDisabled: true,
   };
 
   onInputChange = ({ target }) => {
-    const { name } = target;
+    const { cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare } = this.state;
     const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
     this.setState({
       [name]: value,
+    });
+    const somatory = cardAttr1 + cardAttr2 + cardAttr3;
+    const controlMax = 210;
+    const controlMin = 90;
+    if (cardName !== ''
+    && cardDescription !== ''
+    && cardImage !== ''
+    && cardRare !== ''
+    && somatory <= controlMax
+    && somatory >= controlMin) {
+      this.setState({
+        [name]: value,
+        isSaveButtonDisabled: false,
+
+      });
+    }
+    this.setState({
     });
   };
 
