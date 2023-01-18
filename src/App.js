@@ -16,7 +16,46 @@ class App extends React.Component {
     isSaveButtonDisabled: true,
   };
 
+  onSaveButtonClick = () => {
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo } = this.state;
+    this.setState({
+      savedCard: [{ cardName },
+        { cardDescription },
+        { cardAttr1 },
+        { cardAttr2 },
+        { cardAttr3 },
+        { cardImage },
+        { cardRare },
+        { cardTrunfo },
+        { hasTrunfo },
+      ],
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardRare: 'normal',
+    });
+  };
+
   onInputChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+    this.setState({
+      [name]: value,
+    }, this.validate);
+  };
+
+  validate = () => {
     const { cardAttr1,
       cardAttr2,
       cardAttr3,
@@ -24,27 +63,18 @@ class App extends React.Component {
       cardDescription,
       cardImage,
       cardRare } = this.state;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-    this.setState({
-      [name]: value,
-    });
-    const somatory = cardAttr1 + cardAttr2 + cardAttr3;
     const controlMax = 210;
     const controlMin = 90;
-    if (cardName !== ''
+    const validation = cardName !== ''
     && cardDescription !== ''
     && cardImage !== ''
     && cardRare !== ''
-    && somatory <= controlMax
-    && somatory >= controlMin) {
-      this.setState({
-        [name]: value,
-        isSaveButtonDisabled: false,
-
-      });
-    }
+    && +cardAttr1 + +cardAttr2 + +cardAttr3 <= controlMax
+    && +cardAttr1 >= 0 && +cardAttr1 <= controlMin
+    && +cardAttr2 >= 0 && +cardAttr2 <= controlMin
+    && +cardAttr3 >= 0 && +cardAttr3 <= controlMin;
     this.setState({
+      isSaveButtonDisabled: !(validation), // Essa foi dica :)
     });
   };
 
@@ -56,6 +86,7 @@ class App extends React.Component {
         <Form
           { ...state }
           onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           { ...state }
