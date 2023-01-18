@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Card extends Component {
   render() {
@@ -12,21 +13,34 @@ export default class Card extends Component {
       cardRare,
       cardTrunfo,
     } = this.props;
-      let superTrunfo;
+    let superTrunfo;
     if (cardTrunfo) {
       superTrunfo = <p data-testid="trunfo-card">Super Trunfo</p>;
     }
     return (
       <div>
-        <p data-testid="name-card">${cardName}</p>
-        <img src={cardImage} alt={cardName} data-testid="image-card" />
+        <p data-testid="name-card">
+          { cardName }
+        </p>
+        <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         <p data-testid="description-card">{cardDescription}</p>
         <p data-testid="attr1-card">{cardAttr1}</p>
         <p data-testid="attr2-card">{cardAttr2}</p>
         <p data-testid="attr3-card">{cardAttr3}</p>
         <p data-testid="rare-card">{cardRare}</p>
-        {superTrunfo};
+        {superTrunfo}
       </div>
-    )
+    );
   }
 }
+
+Card.propTypes = {
+  cardName: PropTypes.string,
+  cardAttr1: PropTypes.string,
+  cardAttr2: PropTypes.string,
+  cardAttr3: PropTypes.string,
+  cardDescription: PropTypes.string,
+  cardImage: PropTypes.string,
+  cardRare: PropTypes.string,
+  cardTrunfo: PropTypes.string,
+}.isRequired;
