@@ -12,24 +12,28 @@ export default class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      savedCard,
     } = this.props;
+
     let superTrunfo;
     if (cardTrunfo) {
       superTrunfo = <p data-testid="trunfo-card">Super Trunfo</p>;
     }
     return (
-      <div>
-        <p data-testid="name-card">
-          { cardName }
-        </p>
-        <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-        <p data-testid="description-card">{cardDescription}</p>
-        <p data-testid="attr1-card">{cardAttr1}</p>
-        <p data-testid="attr2-card">{cardAttr2}</p>
-        <p data-testid="attr3-card">{cardAttr3}</p>
-        <p data-testid="rare-card">{cardRare}</p>
-        {superTrunfo}
-      </div>
+      savedCard.map((element) =>
+        <div key={ element.cardName} style= { {border: 'red 2px solid'}}>
+          <p data-testid="name-card">
+            { element.cardName }
+          </p>
+          <img src={ element.cardImage } alt={ element.cardName } data-testid="image-card" />
+          <p data-testid="description-card">{element.cardDescription}</p>
+          <p data-testid="attr1-card">{element.cardAttr1}</p>
+          <p data-testid="attr2-card">{element.cardAttr2}</p>
+          <p data-testid="attr3-card">{element.cardAttr3}</p>
+          <p data-testid="rare-card">{element.cardRare}</p>
+          {superTrunfo}
+        </div>
+      )
     );
   }
 }
