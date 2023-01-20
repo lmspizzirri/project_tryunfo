@@ -12,7 +12,6 @@ export default class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      savedCard,
     } = this.props;
 
     let superTrunfo;
@@ -20,7 +19,7 @@ export default class Card extends Component {
       superTrunfo = <p data-testid="trunfo-card">Super Trunfo</p>;
     }
     return (
-      <div style= { {border: 'red 2px solid'}}>
+      <div style={ { border: 'red 2px solid' } }>
         <p data-testid="name-card">
           { cardName }
         </p>
@@ -32,7 +31,7 @@ export default class Card extends Component {
         <p data-testid="rare-card">{cardRare}</p>
         {superTrunfo}
       </div>
-    )
+    );
   }
 }
 

@@ -17,6 +17,21 @@ class App extends React.Component {
     savedCard: [],
   };
 
+  handleClick = (param) => {
+    const { savedCard } = this.state;
+    const newCards = savedCard.filter((element) => element.cardName !== param);
+    this.setState({
+      savedCard: [...newCards],
+      hasTrunfo: false,
+    });
+    const deletedCard = savedCard.filter((element) => element.cardName === param);
+    if (deletedCard.cardTrunfo === true) {
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
+  };
+
   onSaveButtonClick = () => {
     const { cardName,
       cardDescription,
@@ -102,12 +117,20 @@ class App extends React.Component {
         <Card
           { ...state }
         />
-        { savedCard.map((element) =>
-          <Card
-          { ...element }
-          key={ element.cardName }
-          />
-        )}
+        { savedCard.map((element) => (
+          <>
+            <Card
+              { ...element }
+              key={ element.cardName }
+            />
+            <button
+              data-testid="delete-button"
+              onClick={ () => this.handleClick(element.cardName) }
+              type="button"
+            >
+              Excluir
+            </button>
+          </>))}
       </div>
     );
   }
