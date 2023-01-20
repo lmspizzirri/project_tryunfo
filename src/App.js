@@ -17,6 +17,7 @@ class App extends React.Component {
     savedCard: [],
     nameSearch: '',
     filterResult: [],
+    rareSearch: '',
   };
 
   handleClick = (param) => {
@@ -85,6 +86,12 @@ class App extends React.Component {
       filterResult: filterCheck,
       nameSearch: value,
     });
+    const filterCheck2 = savedCard.filter((element) => element
+      .cardRare === value);
+    this.setState({
+      filterResult: filterCheck2,
+      nameSearch: value,
+    });
   };
 
   validate = () => {
@@ -125,7 +132,6 @@ class App extends React.Component {
         <Card
           { ...state }
         />
-
         <input
           data-testid="name-filter"
           type="text"
@@ -133,7 +139,19 @@ class App extends React.Component {
           name="nameSearch"
           value={ nameSearch }
         />
-        { nameSearch === '' ? (savedCard.map((element) => (
+
+        <select
+          data-testid="rare-filter"
+          value={ nameSearch }
+          onChange={ this.handleChange }
+          name="rareSearch"
+        >
+          <option value="normal">normal</option>
+          <option value="raro">raro</option>
+          <option value="muito raro">muito raro</option>
+          <option value="todas">todas</option>
+        </select>
+        { nameSearch === '' || nameSearch === 'todas' ? (savedCard.map((element) => (
           <div key={ element.cardName }>
             <Card
               { ...element }
