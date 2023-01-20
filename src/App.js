@@ -24,12 +24,6 @@ class App extends React.Component {
       savedCard: [...newCards],
       hasTrunfo: false,
     });
-    const deletedCard = savedCard.filter((element) => element.cardName === param);
-    if (deletedCard.cardTrunfo === true) {
-      this.setState({
-        hasTrunfo: false,
-      });
-    }
   };
 
   onSaveButtonClick = () => {
