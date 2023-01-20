@@ -26,7 +26,6 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
     } = this.state;
 
     if (cardTrunfo) {
@@ -44,8 +43,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-
-    }
+    };
     this.setState((prevState) => ({
       savedCard: [...prevState.savedCard, cardInfo],
       cardName: '',
@@ -92,6 +90,7 @@ class App extends React.Component {
 
   render() {
     const { ...state } = this.state;
+    const { savedCard } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -103,6 +102,12 @@ class App extends React.Component {
         <Card
           { ...state }
         />
+        { savedCard.map((element) =>
+          <Card
+          { ...element }
+          key={ element.cardName }
+          />
+        )}
       </div>
     );
   }
