@@ -17,7 +17,8 @@ class App extends React.Component {
     savedCard: [],
     nameSearch: '',
     filterResult: [],
-    rareSearch: '',
+    rareChange: '',
+    filterResult2: [],
   };
 
   handleClick = (param) => {
@@ -86,11 +87,16 @@ class App extends React.Component {
       filterResult: filterCheck,
       nameSearch: value,
     });
-    const filterCheck2 = savedCard.filter((element) => element
+  };
+
+  handleChangeRare = ({ target }) => {
+    const { savedCard } = this.state;
+    const { value } = target;
+    const filterRare = savedCard.filter((element) => element
       .cardRare === value);
     this.setState({
-      filterResult: filterCheck2,
-      nameSearch: value,
+      filterResult2: filterRare,
+      rareChange: value,
     });
   };
 
@@ -119,7 +125,7 @@ class App extends React.Component {
 
   render() {
     const { ...state } = this.state;
-    const { nameSearch, savedCard, filterResult } = this.state;
+    const { nameSearch, savedCard, rareChange } = this.state;
 
     return (
       <div>
@@ -139,19 +145,18 @@ class App extends React.Component {
           name="nameSearch"
           value={ nameSearch }
         />
-
         <select
           data-testid="rare-filter"
-          value={ nameSearch }
-          onChange={ this.handleChange }
-          name="rareSearch"
+          name=" rareChange "
+          value={ rareChange }
+          onChange={ this.handleChangeRare }
         >
+          <option value="">todas</option>
           <option value="normal">normal</option>
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
-          <option value="todas">todas</option>
         </select>
-        { nameSearch === '' || nameSearch === 'todas' ? (savedCard.map((element) => (
+        { nameSearch === '' && rareChange === '' ? (savedCard.map((element) => (
           <div key={ element.cardName }>
             <Card
               { ...element }
@@ -164,19 +169,21 @@ class App extends React.Component {
               Excluir
             </button>
           </div>)))
-          : (filterResult.map((element) => (
-            <div key={ element.cardName }>
-              <Card
-                { ...element }
-              />
-              <button
-                data-testid="delete-button"
-                onClick={ () => this.handleClick(element.cardName) }
-                type="button"
-              >
-                Excluir
-              </button>
-            </div>)))}
+          : (savedCard.filter((element) => element.cardName
+            .includes(nameSearch) && element.cardRare.startsWith(rareChange))
+            .map((element) => (
+              <div key={ element.cardName }>
+                <Card
+                  { ...element }
+                />
+                <button
+                  onClick={ () => this.handlseClick(element.cardName) }
+                  data-testid="delete-button"
+                  type="button"
+                >
+                  Excluir
+                </button>
+              </div>)))}
       </div>
     );
   }
